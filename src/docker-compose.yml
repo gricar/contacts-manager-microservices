@@ -1,0 +1,9 @@
+services:
+  contact.api:
+    image: ${DOCKER_REGISTRY-}contactapi
+    build:
+      context: .
+      dockerfile: Services/Contact/Contact.API/Dockerfile
+
+  messagebroker:
+    image: rabbitmq:management-alpine
