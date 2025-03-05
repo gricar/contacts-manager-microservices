@@ -1,0 +1,35 @@
+# Acesse https://aka.ms/customizecontainer para saber como personalizar seu contêiner de depuração e como o Visual Studio usa este Dockerfile para criar suas imagens para uma depuração mais rápida.
+
+# Esta fase é usada durante a execução no VS no modo rápido (Padrão para a configuração de Depuração)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# Esta fase é usada para compilar o projeto de serviço
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Services/ContactPersistency/ContactPersistency.API/ContactPersistency.API.csproj", "Services/ContactPersistency/ContactPersistency.API/"]
+COPY ["Services/ContactPersistency/ContactPersistence.Application/ContactPersistence.Application.csproj", "Services/ContactPersistency/ContactPersistence.Application/"]
+COPY ["BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj", "BuildingBlocks/BuildingBlocks.Messaging/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
+COPY ["Services/ContactPersistency/ContactPersistence.Domain/ContactPersistence.Domain.csproj", "Services/ContactPersistency/ContactPersistence.Domain/"]
+COPY ["Services/ContactPersistency/ContactPersistence.Infrastructure/ContactPersistence.Infrastructure.csproj", "Services/ContactPersistency/ContactPersistence.Infrastructure/"]
+RUN dotnet restore "./Services/ContactPersistency/ContactPersistency.API/ContactPersistency.API.csproj"
+COPY . .
+WORKDIR "/src/Services/ContactPersistency/ContactPersistency.API"
+RUN dotnet build "./ContactPersistency.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./ContactPersistency.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ContactPersistency.API.dll"]
