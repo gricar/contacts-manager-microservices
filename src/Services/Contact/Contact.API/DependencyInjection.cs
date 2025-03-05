@@ -2,6 +2,7 @@
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
 using Carter;
+using Contact.API.ValidationServices;
 using FluentValidation;
 
 namespace Contact.API;
@@ -18,6 +19,12 @@ public static class DependencyInjection
             config.RegisterServicesFromAssembly(typeof(Program).Assembly);
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+        });
+
+        services.AddHttpClient<IContactValidationService, ContactValidationService>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["Services:ContactsPersistence"]!);
+            client.Timeout = TimeSpan.FromSeconds(10);
         });
 
         services.AddValidatorsFromAssembly(typeof(Program).Assembly);
