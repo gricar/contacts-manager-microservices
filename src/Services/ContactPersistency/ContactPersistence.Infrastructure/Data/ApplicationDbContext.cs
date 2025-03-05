@@ -1,10 +1,11 @@
-﻿using ContactPersistence.Domain.Models;
+﻿using ContactPersistence.Application.Data;
+using ContactPersistence.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace ContactPersistence.Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
