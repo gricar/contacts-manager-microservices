@@ -1,9 +1,19 @@
 services:
+  messagebroker:
+    image: rabbitmq:management-alpine
+
+  contacts.db:
+    image: mcr.microsoft.com/mssql/server
+
   contact.api:
     image: ${DOCKER_REGISTRY-}contactapi
     build:
       context: .
       dockerfile: Services/Contact/Contact.API/Dockerfile
 
-  messagebroker:
-    image: rabbitmq:management-alpine
+  contact-persistency.api:
+    image: ${DOCKER_REGISTRY-}contactpersistencyapi
+    build:
+      context: .
+      dockerfile: Services/ContactPersistency/ContactPersistency.API/Dockerfile
+

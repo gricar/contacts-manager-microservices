@@ -2,6 +2,7 @@
 using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
 using Carter;
+using FluentValidation;
 
 namespace Contact.API;
 
@@ -18,6 +19,8 @@ public static class DependencyInjection
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
+
+        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
         services.AddExceptionHandler<CustomExceptionHandler>();
 
