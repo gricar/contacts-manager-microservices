@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Exceptions;
+using ContactPersistence.Domain.Exceptions;
 
 namespace Contact.API.ValidationServices;
 
@@ -12,6 +13,31 @@ public class ContactValidationService(HttpClient httpClient) : IContactValidatio
         await CheckForUniqueContactAsync(dddCode, phone);
 
         await CheckForUniqueEmailAsync(email);
+    }
+
+    public async Task EnsureContactExistsAsync(Guid Id)
+    {
+        await CheckIdContactAsync(Id);
+
+    }
+
+    private async Task CheckIdContactAsync(Guid Id)
+    {
+        var url = $"{_baseUrl}?Id={Id}";
+        var response = await _httpClient.GetAsync(url);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorMessage = await response.Content.ReadAsStringAsync();
+            throw new Exception($"An error occurred while checking if the contact is unique: {errorMessage}");
+        }
+
+        var content = await response.Content.ReadFromJsonAsync<CheckExistContactResult>();
+
+        if (string.IsNullOrEmpty(Id.ToString()) && content is not null && !content.exist)
+        {
+            throw new InvalidIdContactException(Id);
+        }
     }
 
     private async Task CheckForUniqueContactAsync(int dddCode, string phone)
@@ -52,7 +78,7 @@ public class ContactValidationService(HttpClient httpClient) : IContactValidatio
         }
     }
 
-
     public record CheckUniqueContactResult(bool isUnique);
+    public record CheckExistContactResult(bool exist);
 }
 
