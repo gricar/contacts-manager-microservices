@@ -2,10 +2,14 @@ name: CI Pipeline - Contact Microservice API
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'Services/Contact/**'
       - 'BuildingBlocks/**'
   pull_request:
+    branches:
+      - main
     paths:
       - 'Services/Contact/**'
       - 'BuildingBlocks/**'
