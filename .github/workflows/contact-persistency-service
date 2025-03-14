@@ -1,0 +1,36 @@
+name: CI Pipeline - Contact Persistency API Microservice
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Services/ContactPersistency/**'
+      - 'src/BuildingBlocks/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/Services/ContactPersistency/**'
+      - 'src/BuildingBlocks/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore src/Services/ContactPersistency/ContactPersistency.API
+      
+    - name: Build
+      run: dotnet build src/Services/ContactPersistency/ContactPersistency.API --no-restore --configuration Release
+
+    - name: Run tests
+      run: dotnet test src/Services/ContactPersistency/ContactPersistency.API --configuration Release --no-build --verbosity normal
