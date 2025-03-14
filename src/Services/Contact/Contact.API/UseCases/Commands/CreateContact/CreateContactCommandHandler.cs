@@ -4,7 +4,8 @@ using Contact.API.ValidationServices;
 
 namespace Contact.API.UseCases.Commands.CreateContact;
 
-public class CreateContactCommandHandler(IContactValidationService contactValidationService, IPublishEndpoint publishEndpoint)
+public class CreateContactCommandHandler(
+    IContactValidationService contactValidationService, IPublishEndpoint publishEndpoint)
     : ICommandHandler<CreateContactCommand, CreateContactResponse>
 {
     public async Task<CreateContactResponse> Handle(CreateContactCommand command, CancellationToken cancellationToken)
