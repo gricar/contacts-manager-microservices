@@ -5,13 +5,13 @@ on:
     branches:
       - main
     paths:
-      - 'src/Services/Contact/Contact.API**'
+      - 'src/Services/Contact/**'
       - 'src/BuildingBlocks/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'src/Services/Contact/Contact.API**'
+      - 'src/Services/Contact/**'
       - 'src/BuildingBlocks/**'
 
 jobs:
