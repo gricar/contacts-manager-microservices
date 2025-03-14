@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Services/Contact/**'
+      - 'Services/Contact/Contact.API**'
       - 'BuildingBlocks/**'
   pull_request:
     branches:
