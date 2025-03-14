@@ -21,7 +21,7 @@ public static class DependencyInjection
 
     public static WebApplication UseApiService(this WebApplication app)
     {
-        app.MapCarters();
+        app.MapCarter();
 
         app.UseExceptionHandler(options => { });
 
