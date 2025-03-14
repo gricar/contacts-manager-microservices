@@ -27,10 +27,10 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Restore dependencies
-      run: dotnet restore Services/Contact/Contact.API
+      run: dotnet restore src/Services/Contact/Contact.API
       
     - name: Build
-      run: dotnet build Services/Contact/Contact.API --no-restore --configuration Release
+      run: dotnet build src/Services/Contact/Contact.API --no-restore --configuration Release
 
     - name: Run tests
-      run: dotnet test Services/Contact/Contact.API --configuration Release --no-build --verbosity normal
+      run: dotnet test src/Services/Contact/Contact.API --configuration Release --no-build --verbosity normal
