@@ -11,9 +11,10 @@ public class DeleteContactHandler(IApplicationDbContext dbContext)
     {
         // Verifica se o contato existe
         var contact = await dbContext.Contacts.FindAsync(command.Id);
+
         if (contact == null)
         {
-            throw new NotFoundException("Contato não encontrado.");
+            throw new NotFoundException("Contact", command.Id);
         }
 
         // Remove o contato do banco de dados
@@ -21,6 +22,6 @@ public class DeleteContactHandler(IApplicationDbContext dbContext)
         await dbContext.SaveChangesAsync(cancellationToken);
 
         // Retorna o resultado
-        return new DeleteContactResult(true, "Contato excluído com sucesso.");
+        return new DeleteContactResult(true);
     }
 }

@@ -2,5 +2,5 @@
 
 public record DeleteContactEvent : IntegrationEvent
 {
-    public Guid Id { get; set; } // Identificador único do contato a ser excluído
+    public Guid ContactId { get; set; }
 }

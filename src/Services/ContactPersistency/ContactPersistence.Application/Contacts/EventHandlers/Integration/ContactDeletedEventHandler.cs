@@ -21,6 +21,6 @@ public class ContactDeletedEventHandler
 
     private DeleteContactCommand MapToDeleteContactCommand(DeleteContactEvent message)
     {
-        return new DeleteContactCommand(message.Id);
+        return new DeleteContactCommand(message.ContactId);
     }
 }

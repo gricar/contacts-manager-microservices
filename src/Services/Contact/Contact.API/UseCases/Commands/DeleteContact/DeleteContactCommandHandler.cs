@@ -15,7 +15,7 @@ public class DeleteContactCommandHandler(IContactValidationService contactValida
         // Cria o evento de exclusão
         var eventMessage = new DeleteContactEvent
         {
-            Id = command.Id
+            ContactId = command.Id
         };
 
         // Publica o evento
