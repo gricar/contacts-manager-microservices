@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContactPersistency.API.Endpoints;
 
-public class CheckUniqueContact : ICarterModule
+public class CheckExistContact : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {

@@ -13,7 +13,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contact API");
+        c.RoutePrefix = string.Empty; // Redireciona a url / para o Swagger
+    });
 }
 
 app.UseApiService();
