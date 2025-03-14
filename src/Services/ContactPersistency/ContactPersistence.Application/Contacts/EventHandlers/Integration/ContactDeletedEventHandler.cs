@@ -15,6 +15,7 @@ public class ContactDeletedEventHandler
         logger.LogInformation("Integration Event handled: {IntegrationEvent}", context.Message.GetType().Name);
 
         var command = MapToDeleteContactCommand(context.Message);
+        //var command = context.Message.Adapt<DeleteContactCommand>();
 
         await sender.Send(command);
     }
