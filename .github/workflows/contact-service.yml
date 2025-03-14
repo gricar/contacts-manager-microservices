@@ -1,0 +1,36 @@
+name: CI Pipeline - Contact Microservice API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Services/Contact/**'
+      - 'BuildingBlocks/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Services/Contact/**'
+      - 'BuildingBlocks/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore Services/Contact/Contact.API
+      
+    - name: Build
+      run: dotnet build Services/Contact/Contact.API --no-restore --configuration Release
+
+    - name: Run tests
+      run: dotnet test Services/Contact/Contact.API --configuration Release --no-build --verbosity normal
