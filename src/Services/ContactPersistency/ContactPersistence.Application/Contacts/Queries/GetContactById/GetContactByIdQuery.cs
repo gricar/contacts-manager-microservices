@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.CQRS;
+using ContactPersistence.Application.DTOs;
 
 namespace ContactPersistence.Application.Contacts.Queries.CheckContactExists;
 
-public record CheckContactExistsQuery(Guid Id) : IQuery<CheckContactExistsResult>;
+public record GetContactByIdQuery(Guid Id) : IQuery<ContactDto>;
