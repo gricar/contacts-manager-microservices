@@ -17,6 +17,8 @@ public class ContactCreatedEventHandler
 
         var command = MapToCreateContactCommand(context.Message);
 
+        //var command = context.Message.Adapt<CreateContactCommand>();
+
         await sender.Send(command);
     }
 
