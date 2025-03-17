@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4D6B8376
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPersistency.Domain.Tests", "Services\ContactPersistency\Tests\ContactPersistency.Domain.Tests\ContactPersistency.Domain.Tests.csproj", "{93ABD0F0-1093-47EF-8573-16C314FC255B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactPersistency.Application.Tests", "Services\ContactPersistency\Tests\ContactPersistency.Application.Tests\ContactPersistency.Application.Tests.csproj", "{51A24669-B8D6-42A0-BAF5-42DE7D462FD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{93ABD0F0-1093-47EF-8573-16C314FC255B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93ABD0F0-1093-47EF-8573-16C314FC255B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93ABD0F0-1093-47EF-8573-16C314FC255B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A24669-B8D6-42A0-BAF5-42DE7D462FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A24669-B8D6-42A0-BAF5-42DE7D462FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A24669-B8D6-42A0-BAF5-42DE7D462FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A24669-B8D6-42A0-BAF5-42DE7D462FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{866450F6-42DF-442C-B660-3918ADB800E2} = {E2BFE6F2-0C74-4127-A4A4-E3F7990DCFB4}
 		{4D6B8376-321E-4A9F-B65F-26367CBE8040} = {E2BFE6F2-0C74-4127-A4A4-E3F7990DCFB4}
 		{93ABD0F0-1093-47EF-8573-16C314FC255B} = {4D6B8376-321E-4A9F-B65F-26367CBE8040}
+		{51A24669-B8D6-42A0-BAF5-42DE7D462FD6} = {4D6B8376-321E-4A9F-B65F-26367CBE8040}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B560DBF6-1BF2-4545-B4CD-EDC7F972C60B}
