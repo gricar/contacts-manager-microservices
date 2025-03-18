@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.Exceptions;
+﻿using ContactPersistence.Application.Contacts.Commands.DeleteContact;
+using ContactPersistence.Domain.Exceptions;
 using ContactPersistence.Domain.Models;
 using ContactPersistency.Application.IntegrationTests.Fixtures;
 using ContactPersistency.Application.IntegrationTests.Infrastructure;
@@ -53,6 +54,27 @@ public class ContactsTests : BaseIntegrationTest
         Func<Task> act = async () => await Sender.Send(command);
 
         //Assert
-        await act.Should().ThrowAsync<BadRequestException>();
+        await act.Should().ThrowAsync<InvalidPhoneNumberException>();
+    }
+
+    [Fact(DisplayName = "Should delete one contact with valid values")]
+    [Trait("Category", "Integration")]
+    [Trait("Component", "Database")]
+    public async Task DeleteContactCommand_ShouldDeleteOneContact_WhenValid()
+    {
+        //Arrange
+        var existingContact = DataSeeder.GetTestContact();
+
+        var command = _fixture.CreateDeleteContactCommand(existingContact.Id);
+
+        //Act
+        var result = await Sender.Send(command);
+
+        //Assert
+        var contact = DbContext.Contacts.FirstOrDefault(c => c.Id == existingContact.Id);
+
+        contact.Should().BeNull();
+        result.Should().NotBeNull();
+        result.Should().BeOfType<DeleteContactResult>();
     }
 }
