@@ -30,3 +30,5 @@ if (app.Environment.IsDevelopment())
 app.UseApiService();
 
 app.Run();
+
+public partial class Program { } // for integration tests
