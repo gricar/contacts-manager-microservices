@@ -1,9 +1,10 @@
 using Contact.API;
-
+using Prometheus;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureApiService(builder.Configuration);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -21,5 +22,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseApiService();
+
+// Habilita o endpoint "/metrics" para Prometheus
+app.UseMetricServer();
+
+// Coleta métricas HTTP automaticamente
+app.UseHttpMetrics();
+
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
